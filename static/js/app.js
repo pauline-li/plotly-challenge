@@ -102,6 +102,40 @@ function getCharts(xID) {
     console.log(otuLabels);
     console.log(getHover);
 
+    //=============Add Chart====================
+    var trace1 = {
+     type: "bar",
+      x: getValues,
+      y: otuLabels,
+      marker: {
+        color: "#17BECF"},
+      orientation: "h", 
+      
+    };
+
+    var data = [trace1];
+
+    var layout = {
+      title: "Bar Chart",
+      yaxis: {
+        autorange: true
+      },
+        margin: {
+          l: 50,
+          r: 50,
+          b: 100,
+          t: 100,
+          pad: 4
+        }       
+
+      
+    };
+
+    Plotly.newPlot("bar", data, layout);
+
+
+
+   //============================================
   });
 
 }
