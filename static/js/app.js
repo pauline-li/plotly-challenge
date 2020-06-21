@@ -54,9 +54,9 @@ function init() {
       selectedID.append("option").text(id).property("value", id);
     });
 
-    // take first id to populate initial 
+    // Populate initial view with first id 
     getMetadata(data.names[0]);
-
+    getCharts(data.names[0]);
 
   });
 
@@ -64,10 +64,9 @@ function init() {
 
 //onChanged event send new ID
 function optionChanged(newID){
- getMetadata(newID)
+  getMetadata(newID);
+  getCharts(newID);
 }
-
-
 
 function getMetadata(xID) {
   // read the json file to get data
@@ -90,6 +89,24 @@ function getMetadata(xID) {
       });
   }
 
+function getCharts(xID) {
+//Build Charts here
+d3.json("samples.json").then((data)=> {
+  //console.log(xID);  
+
+  // filter on "samples" metadata for selected id
+  var result = data.samples.filter(t => t.id.toString() === xID)[0];
+  // Get the top 10 values(values were already sorted)
+  var getValues = result.sample_values.slice(0,10);
+  // .reverse();
+  console.log(getValues);
+  
+
+
+
+ });
+
+}
 
 
 init();
