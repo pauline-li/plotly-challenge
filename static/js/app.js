@@ -80,14 +80,14 @@ function getCharts(xID) {
     // filter on "samples" metadata for selected id
     var result = data.samples.filter(t => t.id.toString() === xID)[0];
     // Get the top 10 sample_values(values were already sorted)
-    var getValues = result.sample_values.slice(0, 10);
+    var getValues = result.sample_values.slice(0, 10).reverse();
 
     // Get the top 10 otu_lables(values were already sorted)
-    var getHover = result.otu_labels.slice(0, 10);
+    var getHover = result.otu_labels.slice(0, 10).reverse();
 
 
     // Get the top 10 out_ids(values were already sorted)
-    var getLabels = result.otu_ids.slice(0, 10);
+    var getLabels = result.otu_ids.slice(0, 10).reverse();
 
     // Append text prefix "OTU: to out_ids
     var prefix = "OTU "
@@ -108,7 +108,7 @@ function getCharts(xID) {
       x: getValues,
       y: otuLabels,
       marker: {
-        color: "#17BECF"},
+        color: "#00008B"},
       orientation: "h", 
       
     };
@@ -116,12 +116,12 @@ function getCharts(xID) {
     var data = [trace1];
 
     var layout = {
-      title: "Bar Chart",
+      title: "TOP 10 OTUs FOUND",
       yaxis: {
         autorange: true
       },
         margin: {
-          l: 50,
+          l: 100,
           r: 50,
           b: 100,
           t: 100,
