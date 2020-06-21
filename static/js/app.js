@@ -18,23 +18,6 @@
  * index 6 - wfreq
  */
 
-
-
-
-// d3.json("data/samples.json").then(function(data) {
-//   console.log(data);
-// });
-
-// Promise Pending
-// const dataPromise = d3.json("data/samples.json");
-// console.log("Data Promise: ", dataPromise);
-
-// Unpack function
-function unpack(rows, index) {
-  return rows.map(row => row[index]);
-}
-
-
 function init() {
 
   // selectedID.html("");  
@@ -63,63 +46,63 @@ function init() {
 }
 
 //onChanged event send new ID
-function optionChanged(newID){
+function optionChanged(newID) {
   getMetadata(newID);
   getCharts(newID);
 }
 
 function getMetadata(xID) {
   // read the json file to get data
-      d3.json("samples.json").then((data)=> {
-      // Get metadata for the Demographic Info
-          var metadata = data.metadata;
-  
-        // filter metadata by id
-         var result = metadata.filter(t => t.id.toString() === xID)[0];
-        // select demographic panel to put data
-         var x = d3.select("#sample-metadata");
-          
-       // Clear html
-         x.html("");
-  
-       // Take metadata for the selected id and append to demographic panel
-          Object.entries(result).forEach(([key, value]) => {   
-              x.append("p").text(`${key}: ${value}`);    
-          });
-      });
-  }
+  d3.json("samples.json").then((data) => {
+    // Get metadata for the Demographic Info
+    var metadata = data.metadata;
+
+    // filter metadata by id
+    var result = metadata.filter(t => t.id.toString() === xID)[0];
+    // select demographic panel to put data
+    var x = d3.select("#sample-metadata");
+
+    // Clear html
+    x.html("");
+
+    // Take metadata for the selected id and append to demographic panel
+    Object.entries(result).forEach(([key, value]) => {
+      x.append("p").text(`${key}: ${value}`);
+    });
+  });
+}
 
 function getCharts(xID) {
-//Build Charts here
-d3.json("samples.json").then((data)=> {
-  //console.log(xID);  
+  //Build Charts here
+  d3.json("samples.json").then((data) => {
+    //console.log(xID);  
 
-  // filter on "samples" metadata for selected id
-  var result = data.samples.filter(t => t.id.toString() === xID)[0];
-  // Get the top 10 sample_values(values were already sorted)
-  var getValues = result.sample_values.slice(0,10);
- 
- // Get the top 10 otu_lables(values were already sorted)
- var getHover = result.otu_labels.slice(0,10);
- 
-   
-  // Get the top 10 out_ids(values were already sorted)
-  var getLabels = result.otu_ids.slice(0,10);
+    // filter on "samples" metadata for selected id
+    var result = data.samples.filter(t => t.id.toString() === xID)[0];
+    // Get the top 10 sample_values(values were already sorted)
+    var getValues = result.sample_values.slice(0, 10);
 
-  // Append text prefix "OTU: to out_ids
-  var prefix = "OTU "
-
-  //https://stackoverflow.com/questions/51784163/add-a-prefix-to-all-the-element-of-an-array-of-strings-using-javascript
-  var otuLabels = getLabels.map(el => prefix + el);
+    // Get the top 10 otu_lables(values were already sorted)
+    var getHover = result.otu_labels.slice(0, 10);
 
 
-  // .reverse();
-  console.log(getValues);
-  console.log(getLabels);
-  console.log(otuLabels);
-  console.log(getHover);
+    // Get the top 10 out_ids(values were already sorted)
+    var getLabels = result.otu_ids.slice(0, 10);
 
- });
+    // Append text prefix "OTU: to out_ids
+    var prefix = "OTU "
+
+    //https://stackoverflow.com/questions/51784163/add-a-prefix-to-all-the-element-of-an-array-of-strings-using-javascript
+    var otuLabels = getLabels.map(el => prefix + el);
+
+
+    // .reverse();
+    console.log(getValues);
+    console.log(getLabels);
+    console.log(otuLabels);
+    console.log(getHover);
+
+  });
 
 }
 
