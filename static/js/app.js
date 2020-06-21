@@ -96,13 +96,28 @@ d3.json("samples.json").then((data)=> {
 
   // filter on "samples" metadata for selected id
   var result = data.samples.filter(t => t.id.toString() === xID)[0];
-  // Get the top 10 values(values were already sorted)
+  // Get the top 10 sample_values(values were already sorted)
   var getValues = result.sample_values.slice(0,10);
+ 
+ // Get the top 10 otu_lables(values were already sorted)
+ var getHover = result.otu_labels.slice(0,10);
+ 
+   
+  // Get the top 10 out_ids(values were already sorted)
+  var getLabels = result.otu_ids.slice(0,10);
+
+  // Append text prefix "OTU: to out_ids
+  var prefix = "OTU "
+
+  //https://stackoverflow.com/questions/51784163/add-a-prefix-to-all-the-element-of-an-array-of-strings-using-javascript
+  var otuLabels = getLabels.map(el => prefix + el);
+
+
   // .reverse();
   console.log(getValues);
-  
-
-
+  console.log(getLabels);
+  console.log(otuLabels);
+  console.log(getHover);
 
  });
 
