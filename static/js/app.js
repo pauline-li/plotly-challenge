@@ -102,11 +102,12 @@ function getCharts(xID) {
     console.log(otuLabels);
     console.log(getHover);
 
-    //=============Add Chart====================
+    //=============Bar Chart====================
     var trace1 = {
      type: "bar",
       x: getValues,
       y: otuLabels,
+      text: getHover,
       marker: {
         color: "#00008B"},
       orientation: "h", 
@@ -116,7 +117,7 @@ function getCharts(xID) {
     var data = [trace1];
 
     var layout = {
-      title: "TOP 10 OTUs FOUND",
+      title: "ID " + xID + " - Top 10 OTUs",
       yaxis: {
         autorange: true
       },
@@ -132,10 +133,13 @@ function getCharts(xID) {
     };
 
     Plotly.newPlot("bar", data, layout);
+   //================End============================
 
 
 
-   //============================================
+
+
+
   });
 
 }
