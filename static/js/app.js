@@ -142,16 +142,17 @@ function getCharts(xID) {
    var getBubbleLabels = result.otu_ids;
    var getBubbleHover = result.otu_labels;
 
-   var trace1 = {
+   var trace2 = {
     type: "bubble",
     x: getBubbleLabels,
     y: getBubbleValues,
     text: getBubbleHover,
     mode: 'markers',
-    marker: {size: [40, 60, 80, 100]}
+    marker: {size: getBubbleValues, color: getBubbleLabels}
+    
   };
   
-  var data = [trace1];
+  var data = [trace2];
   
   var layout = {
     title: 'Bubble Title',
