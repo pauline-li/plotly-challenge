@@ -82,7 +82,7 @@ function getCharts(xID) {
     // Get the top 10 sample_values(values were already sorted)
     var getValues = result.sample_values.slice(0, 10).reverse();
 
-    // Get the top 10 otu_lables(values were already sorted)
+    // Get the top 10 otu_labels(values were already sorted)
     var getHover = result.otu_labels.slice(0, 10).reverse();
 
 
@@ -133,12 +133,40 @@ function getCharts(xID) {
     };
 
     Plotly.newPlot("bar", data, layout);
-   //================End============================
+   //================End Bar Chart============================
+   
+   
+   //================Bubble Chart==============================
+
+   var getBubbleValues = result.sample_values;
+   var getBubbleLabels = result.otu_ids;
+   var getBubbleHover = result.otu_labels;
+
+   var trace1 = {
+    type: "bubble",
+    x: getBubbleLabels,
+    y: getBubbleValues,
+    text: getBubbleHover,
+    mode: 'markers',
+    marker: {size: [40, 60, 80, 100]}
+  };
+  
+  var data = [trace1];
+  
+  var layout = {
+    title: 'Bubble Title',
+    showlegend: false,
+    height: 600,
+    width: 900
+  };
+  
+  Plotly.newPlot('bubble', data, layout);
 
 
 
 
 
+  //==================End Bubble Chart========================
 
   });
 
