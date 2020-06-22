@@ -1,10 +1,4 @@
-// Use sample_values as the values for the bar chart.
-// Use otu_ids as the labels for the bar chart.
-// Use otu_labels as the hovertext for the chart.
-
-//*** Lessons\15-Interactive-Visualizations-and-Dashboards\3\Activities\02-Evr_Stocks_CandleStick\Solved
-
-/**
+/**************************************************************************
  * Helper function to select samples data - metadata
  * Returns an array of values
  * @param {array} rows
@@ -16,11 +10,9 @@
  * index 4 - location
  * index 5 - bbtype
  * index 6 - wfreq
- */
+ ***************************************************************************/
 
 function init() {
-
-  // selectedID.html("");  
 
   // get drop down
   var selectedID = d3.selectAll("#selDataset");
@@ -52,14 +44,16 @@ function optionChanged(newID) {
 }
 
 function getMetadata(xID) {
-  // read the json file to get data
+  // get data from json file
   d3.json("samples.json").then((data) => {
+    
     // Get metadata for the Demographic Info
     var metadata = data.metadata;
 
     // filter metadata by id
     var result = metadata.filter(t => t.id.toString() === xID)[0];
-    // select demographic panel to put data
+    
+    // select html id #sample-metadata to add data
     var x = d3.select("#sample-metadata");
 
     // Clear html
@@ -75,16 +69,16 @@ function getMetadata(xID) {
 function getCharts(xID) {
   //Build Charts here
   d3.json("samples.json").then((data) => {
-    //console.log(xID);  
+   
 
     // filter on "samples" metadata for selected id
     var result = data.samples.filter(t => t.id.toString() === xID)[0];
+    
     // Get the top 10 sample_values(values were already sorted)
     var getValues = result.sample_values.slice(0, 10).reverse();
 
     // Get the top 10 otu_labels(values were already sorted)
     var getHover = result.otu_labels.slice(0, 10).reverse();
-
 
     // Get the top 10 out_ids(values were already sorted)
     var getLabels = result.otu_ids.slice(0, 10).reverse();
@@ -92,11 +86,10 @@ function getCharts(xID) {
     // Append text prefix "OTU: to out_ids
     var prefix = "OTU "
 
-    //https://stackoverflow.com/questions/51784163/add-a-prefix-to-all-the-element-of-an-array-of-strings-using-javascript
+    // Add prefix to all the element of OTU labels array
     var otuLabels = getLabels.map(el => prefix + el);
 
 
-    // .reverse();
     console.log(getValues);
     console.log(getLabels);
     console.log(otuLabels);
@@ -128,15 +121,13 @@ function getCharts(xID) {
           t: 100,
           pad: 4
         }       
-
       
     };
 
     Plotly.newPlot("bar", data, layout);
-   //================End Bar Chart============================
-   
-   
-   //================Bubble Chart==============================
+  //===================================================================
+
+  //================Bubble Chart=======================================
 
    var getBubbleValues = result.sample_values;
    var getBubbleLabels = result.otu_ids;
@@ -148,26 +139,22 @@ function getCharts(xID) {
     y: getBubbleValues,
     text: getBubbleHover,
     mode: 'markers',
-    marker: {size: getBubbleValues, color: getBubbleLabels}
+    marker: {size: getBubbleValues, color: getBubbleLabels,colorscale: "Earth"}
     
   };
   
   var data = [trace2];
   
   var layout = {
-    title: 'Bubble Title',
+    //title: "ID " + xID + " - Bacteria",
     showlegend: false,
+    xaxis: {title: "OTU ID"},
     height: 600,
     width: 900
   };
   
   Plotly.newPlot('bubble', data, layout);
-
-
-
-
-
-  //==================End Bubble Chart========================
+ //==================End Bubble Chart========================
 
   });
 
@@ -176,14 +163,4 @@ function getCharts(xID) {
 
 init();
 
-//    console.log(data);
-//   var id = data.metadata.id;
-//   var ethnicity =  data.metadata.ethnicity;
-//   var gender = data.metadata.gender;
-//   var age = data.metadata.age;
-//   var location = data.metadata.location;
-//   var bbytpe = data.metadata.bbytpe;
-//   var wfreq = data.metadata.wfreq;
-   //   console.log(id)
-//    });
 
